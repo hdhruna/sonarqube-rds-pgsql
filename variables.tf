@@ -19,9 +19,6 @@ variable "ami_id" {
 
 variable "web_port" {}
 
-variable "+" {
-  default = "1"
-}
 
 variable "count" {
   default = "1"
