@@ -37,5 +37,5 @@ resource "aws_instance" "sonarqube" {
     Name = "${format("sonarqube-%02d", count.index + 1)}"
   }
 
-  depends_on = ["aws_rds_cluster_instance.cluster_instances"]
+  depends_on = ["aws_db_instance.sonarqube-rds"]
 }
