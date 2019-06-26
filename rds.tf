@@ -18,8 +18,7 @@ resource "aws_db_instance" "sonarqube-rds" {
   db_subnet_group_name = "${aws_db_subnet_group.rds_subnet_group.id}"
 
   vpc_security_group_ids = [
-    "${aws_security_group.postgresql.id}",
-    "${aws_security_group.sonarqube.id}",
+    "${aws_security_group.postgresql.id}"
   ]
 
   final_snapshot_identifier = "final-snapshot-name"
