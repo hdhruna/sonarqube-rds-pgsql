@@ -1,0 +1,4 @@
+variables.tfvars
+aws-var.json
+.terraform
+*.rpm
