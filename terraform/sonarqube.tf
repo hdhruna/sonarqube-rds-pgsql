@@ -16,8 +16,8 @@ data "template_file" "sonarqube-userdata" {
     database_name     = "${var.database_name}"
     database_username = "${var.database_username}"
     database_password = "${var.database_password}"
-    rds_address       = "${aws_rds_cluster.aurora-pgsql.address}"
-    rds_port          = "${aws_rds_cluster.aurora-pgsql.port}"
+    rds_address       = "${aws_db_instance.sonarqube-rds.address}"
+    rds_port          = "${aws_db_instance.sonarqube-rds.port}"
   }
 }
 
