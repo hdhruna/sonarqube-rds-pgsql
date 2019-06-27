@@ -1,0 +1,42 @@
+{
+    "variables": {
+        "region": "us-west-2",
+        "profile": "devops",
+        "source_ami": "ami-005bdb005fb00e791",
+        "magic_reference_date": "2006-01-02 15-04-05+0900",
+        "version": "v1"
+    },
+    "sensitive-variables": [],
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "profile": "{{ user `profile` }}",
+            "name": "sonarqube-{{user `version`}}",
+            "region": "{{user `region`}}",
+            "instance_type": "t2.medium",
+            "source_ami": "{{user `source_ami`}}",
+            "ssh_username": "ubuntu",
+            "ami_name": "sonarqube-{{user `version`}}-{{ (isotime (user `magic_reference_date`)) | clean_ami_name }}",
+            "ami_description": "Ubuntu Server 18.04 with Sonarqube Enterprise 7.8",
+            "run_tags": {
+                "Name": "packer-builder-sonarqube"
+            },
+            "tags": {
+                "Tool": "Packer",
+                "source-ami": "{{ .SourceAMI }}",
+                "Name": "sonarqube-{{user `version`}}"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "scripts/setup.sh",
+            "execute_command": "sudo -E -S sh '{{ .Path }}'",
+            "valid_exit_codes": "0",
+            "only": [
+                "sonarqube-{{user `version`}}"
+            ]
+        }
+    ]
+}
